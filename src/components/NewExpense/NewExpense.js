@@ -13,7 +13,7 @@ const NewExpense = (props) => {
     };
 
     props.onAddExpense(expenseData);
-    setIsEditing(false)
+    setIsEditing(false);
   };
 
   const cancelHandler = () => {
