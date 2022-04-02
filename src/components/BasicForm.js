@@ -64,12 +64,12 @@ const BasicForm = (props) => {
 
   return (
     <form onSubmit={submitFormHandler}>
-      <div className={firstNameInputClasses}>
-        <div className="form-control">
-          <label htmlFor="name">First Name</label>
+      <div className={"control-group"}>
+        <div className={firstNameInputClasses}>
+          <label htmlFor="first-name">First Name</label>
           <input
             type="text"
-            id="name"
+            id="first-name"
             onChange={firstNameChangeHandler}
             onBlur={firstNameBlurHandler}
             value={enteredFirstName}
@@ -79,10 +79,10 @@ const BasicForm = (props) => {
           )}
         </div>
         <div className={lastNameInputClasses}>
-          <label htmlFor="name">Last Name</label>
+          <label htmlFor="last-name">Last Name</label>
           <input
             type="text"
-            id="name"
+            id="last-name"
             onChange={lastNameChangeHandler}
             onBlur={lastNameBlurHandler}
             value={enteredLastName}
