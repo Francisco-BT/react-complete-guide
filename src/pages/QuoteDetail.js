@@ -1,4 +1,4 @@
-import { useParams, Route, Redirect } from "react-router-dom";
+import { useParams, Route } from "react-router-dom";
 
 import Comments from "../components/comments/Comments";
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
