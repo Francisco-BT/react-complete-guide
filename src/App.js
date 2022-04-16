@@ -1,44 +1,23 @@
-import { useState } from "react";
-import Expenses from "./components/Expenses/Expenses";
-import NewExpense from "./components/NewExpense/NewExpense";
+import React, { Component } from "react";
 
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    title: "Toilet Paper",
-    amount: 94.12,
-    date: new Date(2020, 7, 14),
-  },
-  { id: "e2", title: "New TV", amount: 799.49, date: new Date(2021, 2, 12) },
-  {
-    id: "e3",
-    title: "Car Insurance",
-    amount: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: "e4",
-    title: "New Desk (Wooden)",
-    amount: 450,
-    date: new Date(2021, 5, 12),
-  },
-];
+import "./App.css";
+import Modal from "./components/Modal/Modal";
+import Backdrop from "./components/Backdrop/Backdrop";
+import List from "./components/List/List";
 
-function App() {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
-
-  const addExpenseHandler = (expense) => {
-    setExpenses((prevExpenses) => {
-      return [expense, ...prevExpenses];
-    });
-  };
-
-  return (
-    <div className="App">
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <h1>React Animations</h1>
+        <Modal />
+        <Backdrop />
+        <button className="Button">Open Modal</button>
+        <h3>Animating Lists</h3>
+        <List />
+      </div>
+    );
+  }
 }
 
 export default App;
