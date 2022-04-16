@@ -6,7 +6,6 @@ import "./Products.css";
 
 const Products = (props) => {
   const { products } = useContext(ProductContext);
-  console.log(products);
 
   return (
     <ul className="products-list">
