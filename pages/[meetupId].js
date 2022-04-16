@@ -1,3 +1,6 @@
+import Head from "next/Head";
+import { MongoClient, ObjectId } from "mongodb";
+
 import MeetupDetail from "../components/meetups/MeetupDetail";
 
 function MeetupDetailsPage(props) {
@@ -5,6 +8,10 @@ function MeetupDetailsPage(props) {
 
   return (
     <>
+      <Head>
+        <title>{meetupData.title}</title>
+        <meta name="description" content={meetupData.description} />
+      </Head>
       <MeetupDetail
         text={meetupData.text}
         image={meetupData.image}
@@ -16,35 +23,48 @@ function MeetupDetailsPage(props) {
 }
 
 export async function getStaticPaths() {
+  const client = await MongoClient.connect("");
+  const db = client.db();
+  const meetupsCollection = db.collection("meetups");
+  const meetups = await meetupsCollection
+    .find(
+      {},
+      {
+        _id: 1,
+      }
+    )
+    .toArray();
+
+  client.close();
   return {
     fallback: false,
-    paths: [
-      {
-        params: {
-          meetupId: "m1",
-        },
+    paths: meetups.map((meetup) => ({
+      params: {
+        meetupId: meetup._id.toString(),
       },
-      {
-        params: {
-          meetupId: "m2",
-        },
-      },
-    ],
+    })),
   };
 }
 
 export async function getStaticProps(context) {
   const { meetupId } = context.params;
+  const client = await MongoClient.connect("");
+  const db = client.db();
+  const meetupsCollection = db.collection("meetups");
+  const meetupData = await meetupsCollection.findOne({
+    _id: ObjectId(meetupId),
+  });
+  console.log(meetupData);
 
+  client.close();
   return {
     props: {
       meetupData: {
         id: meetupId,
-        text: "A First Meetup",
-        image:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1600px-Stadtbild_M%C3%BCnchen.jpg",
-        address: "Some address 12345",
-        description: "Some description",
+        title: meetupData.title,
+        image: meetupData.image,
+        address: meetupData.address,
+        description: meetupData.description,
       },
     },
   };
